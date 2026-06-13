@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LOGIN</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="UserHome_Css.css">
+</head>
+<body>
+<header>
+	<div class="topbar">
+		<div class="brand">E-Trains &mdash; Indian Railways e-Reservation</div>
+		<h1 class="hd" style="padding:0;">National Ticket Booking Spot</h1>
+	</div>
+	<nav class="routeline" aria-label="Account">
+		<ul>
+			<li><a href="UserLogin.html" class="active">Login as User</a></li>
+			<li><a href="UserRegister.html">New User Register</a></li>
+			<li><a href="AdminLogin.html">Login as Admin</a></li>
+		</ul>
+	</nav>
+</header>
+
+<main>
+	<form action="userlogin" method="post" class="ticket">
+		<div class="ticket-main">
+			<div class="eyebrow">Passenger Login</div>
+			<h2>Sign in to book</h2>
+
+			<div class="field">
+				<label for="uname">Email ID</label>
+				<input type="text" id="uname" name="uname" placeholder="you@example.com" autocomplete="username">
+			</div>
+
+			<div class="field">
+				<label for="pword">Password</label>
+				<input type="password" id="pword" name="pword" placeholder="Enter your password" autocomplete="current-password">
+			</div>
+
+			<div class="submit-row">
+				<input type="submit" value="Login">
+				<span class="hint">New here? Use "New User Register" above.</span>
+			</div>
+		</div>
+
+		<div class="stub" aria-hidden="true">
+			<div class="vertical">Boarding</div>
+			<div class="code">E-TRAINS<br>USER ACCESS<br>FORM 01</div>
+		</div>
+	</form>
+</main>
+
+<footer>
+	&copy; 2026 National Ticket Booking Spot &mdash; All Rights Reserved
+</footer>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>E-Trains | User Login</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root{
+          --navy:#142a44;
+          --navy-deep:#0c1b2e;
+          --cream:#f6efe2;
+          --amber:#f0a93b;
+          --signal-red:#c1432f;
+          --slate:#5d6b7a;
+          --ink:#1d2734;
+          --line:#d8cdb6;
+        }
+
+        *{ box-sizing:border-box; margin:0; padding:0; }
+
+        html,body{
+          min-height:100%;
+          font-family:'IBM Plex Sans', sans-serif;
+          color:var(--ink);
+          background:var(--navy-deep);
+        }
+
+        body{
+          background:
+            linear-gradient(180deg, var(--navy) 0%, var(--navy) 230px, var(--cream) 230px, var(--cream) 100%);
+          display:flex;
+          flex-direction:column;
+          min-height:100vh;
+        }
+
+        /* ---------- Header ---------- */
+        .topbar{
+          padding:28px 6vw 18px;
+          color:var(--cream);
+          text-align:center;
+        }
+
+        .topbar .brand{
+          font-family:'Bebas Neue', sans-serif;
+          letter-spacing:6px;
+          font-size:14px;
+          color:var(--amber);
+          text-transform:uppercase;
+          margin-bottom:6px;
+        }
+
+        .hd{
+          font-family:'Bebas Neue', sans-serif;
+          font-size:clamp(28px, 5vw, 46px);
+          letter-spacing:2px;
+          font-weight:400;
+          text-transform:uppercase;
+        }
+
+        /* ---------- Departure-board nav ---------- */
+        nav.routeline{
+          width:100%;
+          background:var(--navy-deep);
+          border-top:1px solid rgba(246,239,226,0.12);
+          border-bottom:3px solid var(--amber);
+          overflow-x:auto;
+          white-space:nowrap;
+          scrollbar-width:thin;
+        }
+
+        nav.routeline ul{
+          list-style:none;
+          display:flex;
+          justify-content:center;
+          min-width:max-content;
+          margin:0 auto;
+        }
+
+        nav.routeline li{
+          border-right:1px solid rgba(246,239,226,0.12);
+        }
+
+        nav.routeline a{
+          display:block;
+          padding:14px 22px;
+          font-family:'IBM Plex Mono', monospace;
+          font-size:12px;
+          letter-spacing:1.5px;
+          text-transform:uppercase;
+          color:#cfd9e6;
+          text-decoration:none;
+          transition:background .15s ease, color .15s ease;
+        }
+
+        nav.routeline a:hover,
+        nav.routeline a:focus-visible{
+          background:var(--amber);
+          color:var(--navy-deep);
+          outline:none;
+        }
+
+        /* ---------- Main / ticket card ---------- */
+        main{
+          flex:1;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          padding:48px 5vw 64px;
+        }
+
+        .ticket{
+          position:relative;
+          display:grid;
+          grid-template-columns:1fr 200px;
+          width:100%;
+          max-width:680px;
+          background:#fffdf7;
+          border:1px solid var(--line);
+          border-radius:6px;
+          box-shadow:0 18px 40px -20px rgba(12,27,46,0.45);
+          overflow:hidden;
+        }
+
+        .ticket-main{
+          padding:42px 40px;
+        }
+
+        .eyebrow{
+          font-family:'IBM Plex Mono', monospace;
+          font-size:11px;
+          letter-spacing:3px;
+          text-transform:uppercase;
+          color:var(--signal-red);
+          margin-bottom:6px;
+        }
+
+        .ticket-main h2{
+          font-family:'Bebas Neue', sans-serif;
+          font-size:30px;
+          letter-spacing:1px;
+          text-transform:uppercase;
+          color:var(--navy);
+          margin-bottom:26px;
+        }
+
+        .field{
+          margin-bottom:20px;
+        }
+
+        .field label{
+          display:block;
+          font-family:'IBM Plex Mono', monospace;
+          font-size:11px;
+          letter-spacing:2px;
+          text-transform:uppercase;
+          color:var(--slate);
+          margin-bottom:8px;
+        }
+
+        .field input{
+          width:100%;
+          padding:12px 14px;
+          font-family:'IBM Plex Sans', sans-serif;
+          font-size:15px;
+          color:var(--ink);
+          background:#fffefb;
+          border:1px solid var(--line);
+          border-radius:4px;
+          transition:border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .field input::placeholder{
+          color:#a8a195;
+        }
+
+        .field input:focus-visible{
+          outline:none;
+          border-color:var(--amber);
+          box-shadow:0 0 0 3px rgba(240,169,59,0.25);
+        }
+
+        .submit-row{
+          margin-top:32px;
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:16px;
+          flex-wrap:wrap;
+        }
+
+        .submit-row input[type="submit"]{
+          appearance:none;
+          border:none;
+          background:var(--navy);
+          color:var(--cream);
+          font-family:'IBM Plex Mono', monospace;
+          font-size:13px;
+          letter-spacing:3px;
+          text-transform:uppercase;
+          font-weight:600;
+          padding:14px 30px;
+          border-radius:4px;
+          cursor:pointer;
+          transition:background .15s ease;
+        }
+
+        .submit-row input[type="submit"]:hover,
+        .submit-row input[type="submit"]:focus-visible{
+          background:var(--signal-red);
+          outline:none;
+        }
+
+        .submit-row .hint{
+          font-size:12px;
+          color:var(--slate);
+        }
+
+        /* ---------- Ticket stub ---------- */
+        .stub{
+          position:relative;
+          background:var(--navy);
+          color:var(--cream);
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content:center;
+          padding:24px 12px;
+          border-left:1px dashed rgba(246,239,226,0.35);
+        }
+
+        .stub::before,
+        .stub::after{
+          content:"";
+          position:absolute;
+          width:24px;
+          height:24px;
+          background:var(--cream);
+          border-radius:50%;
+          left:-12px;
+        }
+
+        .stub::before{ top:-12px; }
+        .stub::after{ bottom:-12px; }
+
+        .stub .vertical{
+          writing-mode:vertical-rl;
+          transform:rotate(180deg);
+          font-family:'Bebas Neue', sans-serif;
+          letter-spacing:6px;
+          font-size:22px;
+          text-transform:uppercase;
+          color:var(--amber);
+        }
+
+        .stub .code{
+          margin-top:18px;
+          font-family:'IBM Plex Mono', monospace;
+          font-size:11px;
+          letter-spacing:2px;
+          color:#cfd9e6;
+          text-align:center;
+          line-height:1.6;
+        }
+
+        /* ---------- Footer ---------- */
+        footer{
+          text-align:center;
+          padding:18px;
+          font-family:'IBM Plex Mono', monospace;
+          font-size:11px;
+          letter-spacing:2px;
+          color:var(--slate);
+          background:var(--cream);
+          border-top:1px solid var(--line);
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 640px){
+          .ticket{
+            grid-template-columns:1fr;
+          }
+          .stub{
+            flex-direction:row;
+            border-left:none;
+            border-top:1px dashed rgba(246,239,226,0.35);
+            padding:16px;
+            gap:14px;
+          }
+          .stub::before{ left:-12px; top:-12px; }
+          .stub::after{ left:auto; right:-12px; bottom:-12px; }
+          .stub .vertical{
+            writing-mode:horizontal-tb;
+            transform:none;
+            font-size:18px;
+          }
+          .stub .code{ margin-top:0; text-align:left; }
+          .ticket-main{ padding:32px 24px; }
+        }
+	</style>
+</head>
+<body>
+
+<header class="topbar">
+	<div class="brand">E-Trains &mdash; Indian Railways e-Reservation</div>
+	<h1 class="hd">National Ticket Booking Spot</h1>
+</header>
+
+<nav class="routeline" aria-label="Primary">
+	<ul>
+		<li><a href="userhome">Home</a></li>
+		<li><a href="userviewtrainfwd">View Trains</a></li>
+		<li><a href="trainbwstnfwd">Trains Between Stations</a></li>
+		<li><a href="bookingdetails">Booking History</a></li>
+		<li><a href="fareenqfwd">Fare Enquiry</a></li>
+		<li><a href="useravailfwd">Seat Availability</a></li>
+		<li><a href="usersearchtrain">Search by Train No.</a></li>
+		<li><a href="userprofile">Profile</a></li>
+		<li><a href="userlogout">Logout</a></li>
+	</ul>
+</nav>
+
+<main>
+	<form action="userlogin" method="post" class="ticket">
+		<div class="ticket-main">
+			<div class="eyebrow">Passenger Login</div>
+			<h2>Sign in to book</h2>
+
+			<div class="field">
+				<label for="uname">Email ID</label>
+				<input type="text" id="uname" name="uname" placeholder="you@example.com" autocomplete="username">
+			</div>
+
+			<div class="field">
+				<label for="pword">Password</label>
+				<input type="password" id="pword" name="pword" placeholder="Enter your password" autocomplete="current-password">
+			</div>
+
+			<div class="submit-row">
+				<input type="submit" value="Login">
+				<span class="hint">Trouble signing in? Contact support from your Profile page.</span>
+			</div>
+		</div>
+
+		<div class="stub" aria-hidden="true">
+			<div class="vertical">Boarding</div>
+			<div class="code">E-TRAINS<br>USER ACCESS<br>FORM 01</div>
+		</div>
+	</form>
+</main>
+
+<footer>
+	&copy; 2026 National Ticket Booking Spot &mdash; All Rights Reserved
+</footer>
+
+</body>
+</html>
